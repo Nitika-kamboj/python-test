@@ -56,6 +56,8 @@ def calculate_moving_average(stock,week=[4,16,28,40,52]):
     df['Close']=stock['Close']
     for i in range(len(week)):
         moving_avg=df['Close'].rolling(week[i]).mean()
+        if week[i]==52:
+            stock['52_WEEK']=moving_avg
         df['M.A.']=moving_avg
         print('Moving Averages: for {0} weeks: \n\n {1}' .format(week[i], df['Close']))
 
@@ -64,7 +66,6 @@ for i in total_stocks:
         print("STOCK LIST IS EMPTY")
     else: 
         calculate_moving_average(i)
-
 #ROLLING WINDOW FOR SIZE 10 AND 75
 #FIRST WE HAVE TO CONSIDER STOCK HOLIDAYS i.e SATURDAYS AND SUNDAYS ,closing price of fridays should be forwarded
 TCS_NEW=TCS.asfreq(freq='D',method='pad')
@@ -197,3 +198,17 @@ def draw_pacf(stock):
 draw_pacf(TCS)
 draw_pacf(INFY)
 draw_pacf(NIFTY)
+
+##Gradient Color
+from bokeh.models import ColumnDataSource, LinearColorMapper
+p= figure()
+x=TCS['52_WEEK']
+y=list(range(len(x)))
+data_source = ColumnDataSource({'x':TCS['52_WEEK'],'y':TCS['Date']})
+color_mapper = LinearColorMapper(palette='Blues8', low=min(y), high=max(y))
+
+# specify that we want to map the colors to the y values, 
+# this could be replaced with a list of colors
+p.scatter(x,y,color={'field': 'y', 'transform': color_mapper})
+
+show(p)
