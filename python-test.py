@@ -4,6 +4,7 @@ from nsepy import get_history
 from datetime import date
 import pandas as pd
 import sys
+import numpy as np
 
 #STORE DATA WITH DATE AS INDEX
 tcs=get_history(symbol='TCS',
