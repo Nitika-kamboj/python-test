@@ -21,7 +21,7 @@ infy=get_history(symbol='INFY',
 
 infy.insert(0, 'Date',  pd.to_datetime(tcs.index,format='%Y-%m-%d') )
 
-infy.to_csv('infy.csv',index=False)
+infy.to_csv('infy.csv',index=False) # storing data as csv
 print("INFY DATA STORED")
 
 nifty_it=get_history(symbol='NIFTYIT',
