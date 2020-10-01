@@ -12,7 +12,8 @@ tcs=get_history(symbol='TCS',
                 end=date(2015,12,31))
 
 tcs.insert(0, 'Date',  pd.to_datetime(tcs.index,format='%Y-%m-%d') )
-tcs.to_csv('tcs.csv',index=False)
+# saving data into csv file
+tcs.to_csv('tcs.csv',index=False) 
 print("TCS DATA STORED")
 
 infy=get_history(symbol='INFY',
